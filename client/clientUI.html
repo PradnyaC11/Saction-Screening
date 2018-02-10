@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+<style>
+#holder { border: 10px dashed #ccc; width: 300px; min-height: 300px; margin: 20px auto;}
+#holder.hover { border: 10px dashed #0c0; }
+
+#holder p { margin: 10px; font-size: 14px; }
+progress { width: 100%; }
+progress:after { content: '%'; }
+.fail { background: #c00; padding: 2px; color: #fff; }
+.hidden { display: none !important;}
+
+
+#file_browse{
+
+height: 40px;
+
+border:none;
+
+overflow:hidden;
+
+}
+
+</style>
+
+  <style>
+  body {
+      font: 400 15px Lato, sans-serif;
+      line-height: 1.8;
+      color: #818181;
+  }
+  h2 {
+      font-size: 24px;
+      text-transform: uppercase;
+      color: #303030;
+      font-weight: 600;
+      margin-bottom: 30px;
+  }
+  h4 {
+      font-size: 19px;
+      line-height: 1.375em;
+      color: #303030;
+      font-weight: 400;
+      margin-bottom: 30px;
+  }  
+  
+  form {
+  width: 600px;
+  background: #fff;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid black;
+}
+
+form ol {
+  padding-left: 0;
+}
+
+form li, div > p {
+  background: #eee;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  list-style-type: none;
+  border: 1px solid black;
+}
+
+
+form p {
+  line-height: 32px;
+  padding-left: 10px;
+}
+
+form label, form button {
+  background-color: #7F9CCB;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px ridge black;
+  font-size: 20;
+  height: auto;
+}
+
+form label:hover, form button:hover {
+  background-color: #2D5BA3;
+  color: white;
+}
+
+form label:active, form button:active {
+  background-color: #0D3F8F;
+  color: white;
+}
+
+  .jumbotron {
+      background-color: #1565c0;
+      color: #fff;
+      height: 200px;
+      font-family: Montserrat, sans-serif;
+  }
+  .container-fluid {
+      padding: 10px 50px;
+  }
+ 
+  .navbar {
+      margin-bottom: 0;
+      background-color: #1C2331;
+      z-index: 9999;
+      border: 0;
+      font-size: 12px !important;
+      line-height: 1.42857143 !important;
+      letter-spacing: 4px;
+      border-radius: 0;
+      font-family: Montserrat, sans-serif;
+  }
+  .navbar li a, .navbar .navbar-brand {
+      color: #fff !important;
+  }
+  .navbar-nav li a:hover, .navbar-nav li.active a {
+      color: #1C2331 !important;
+      background-color: #fff !important;
+  }
+  .navbar-default .navbar-toggle {
+      border-color: transparent;
+      color: #fff !important;
+  }
+  </style>
+  
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#myPage">Home</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#about">ABOUT</a></li>
+        <li><a href="#services">SERVICES</a></li>
+        <li><a href="#portfolio">PORTFOLIO</a></li>
+        <li><a href="#pricing">PRICING</a></li>
+        <li><a href="#contact">CONTACT</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="jumbotron text-center">
+  <img  width="240" style = "margin-top:25px" height ="100" src= "citilogo.jpg"/>
+</div>
+
+<div id="about" class="container-fluid">
+<div class="container" ng-app="fileUpload" style = "width:50%;height:70%;background-color:#2E3747">
+
+<form  ng-controller="MyCtrl as up" name="up.upload_form" >
+                <h3 style="text-align: center;"> FILE UPLOAD</h3><br>
+            <input id = "file_browse" 
+                type="file" 
+                ngf-select 
+                ng-model="up.file" 
+                name="file" 
+                ngf-pattern=".txt"
+                accept=".txt" 
+                ngf-max-size="20MB" 
+                /><br>
+       
+           <!--  Multiple files
+            <div class="button" ngf-select ng-model="up.files" ngf-multiple="true">Select</div>
+            Drop files: <div ngf-drop ng-model="up.files" class="drop-box">Drop</div> -->
+            <button type="submit" ng-click="up.submit()">submit</button>
+            <p>{{up.progress}}</p>
+        </form>
+	<script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
+	<script type="text/javascript" src="node_modules/ng-file-upload/dist/ng-file-upload.min.js"></script>
+	<script type="text/javascript" src="node_modules/ng-file-upload/dist/ng-file-upload-shim.min.js"></script>
+	<script type="text/javascript" src="main.js"></script>
+
+</div>
+   
+</div>
+
+</body>
+</html>
+
